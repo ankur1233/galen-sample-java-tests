@@ -1,22 +1,25 @@
 package com.galenframework.java.sample.components;
 
-import com.galenframework.testng.GalenTestNgTestBase;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.DataProvider;
+import static java.util.Arrays.asList;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
+import com.galenframework.testng.GalenTestNgTestBase;
+
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.DataProvider;
 
 public abstract class GalenTestBase extends GalenTestNgTestBase {
 
-    private static final String ENV_URL = "http://testapp.galenframework.com";
+    private static final String ENV_URL = "https://iecouat.kotakcherry.com/ieco/home";  //http://testapp.galenframework.com
 
     @Override
     public WebDriver createDriver(Object[] args) {
-        WebDriver driver = new FirefoxDriver();
+        System.setProperty("webdriver.chrome.driver", "F:/Software/galen-bin-2.4.4/TestProject/driver/chromedriver/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        //driver.manage().window().
         if (args.length > 0) {
             if (args[0] != null && args[0] instanceof TestDevice) {
                 TestDevice device = (TestDevice)args[0];
@@ -35,9 +38,9 @@ public abstract class GalenTestBase extends GalenTestNgTestBase {
     @DataProvider(name = "devices")
     public Object [][] devices () {
         return new Object[][] {
-                {new TestDevice("mobile", new Dimension(450, 800), asList("mobile"))},
-                {new TestDevice("tablet", new Dimension(750, 800), asList("tablet"))},
-                {new TestDevice("desktop", new Dimension(1024, 800), asList("desktop"))}
+                 {new TestDevice("mobile", new Dimension(375, 812), asList("mobile"))},
+                // {new TestDevice("tablet", new Dimension(750, 800), asList("tablet"))},
+                // {new TestDevice("desktop", new Dimension(1536, 864), asList("desktop"))}
         };
     }
 
